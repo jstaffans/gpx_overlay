@@ -21,7 +21,6 @@ html {
 	font-size: 100%; 
 	-webkit-text-size-adjust: 100%; 
 	-ms-text-size-adjust: 100%; 
-	background: white url(../img/html-bg.png) repeat-x top;
 }}
 
 html, button, input, select, textarea { font-family: sans-serif; color: #222; }
