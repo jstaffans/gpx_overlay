@@ -1,6 +1,4 @@
 $(document).ready(function() {
-	$('.magnify').append('<img class="loader" src="/images/loader.gif" />');
-
 	var native_width = 0;
 	var native_height = 0;
 
@@ -66,6 +64,6 @@ $(document).ready(function() {
 });
 
 $('body').waitForImages(function() {
-  $('.loader').fadeOut('fast', function() {});
+  $('.loader').hide();
 	$('.fade').fadeIn(2000, function() {});  
 });
