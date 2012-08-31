@@ -1,6 +1,4 @@
 $(document).ready(function() {
-	$('.fade').fadeIn(2000, function() {});
-
 	var native_width = 0;
 	var native_height = 0;
 
@@ -63,4 +61,8 @@ $(document).ready(function() {
 			}
 		}
 	})
+});
+
+$('body').waitForImages(function() {
+	$('.fade').fadeIn(2000, function() {});  
 });
