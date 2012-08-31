@@ -1,13 +1,6 @@
 extends layout
 
 block content
-	h1= title
-	form.map(method='post', action='/', enctype='multipart/form-data')
-		p
-			label(for='map') Map file:	
-			input(type='file', name='map')
-		p
-			label(for='dpi') DPI:
-			input(type='text', name='dpi', size='5', value='150')
-		p.buttons
-			input(type='submit', value='Submit')
+	div(class='magnify')
+		div(class='large')
+		img(class='small fade', src='/images/ukk-small.png')

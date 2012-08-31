@@ -3,13 +3,11 @@ html
 	head
 		title= title
 		link(rel='stylesheet', href='/stylesheets/style.css')
+
 	body
-		header
-			nav
-				ul
-					li
-						a(href="/") Home
-					li
-						a(href="/about") About
-		
-		block content
+		block content 
+	
+	script(type='text/javascript', src='http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js')
+	script(type='text/javascript', src='/javascripts/prefixfree.min.js')
+	script(type='text/javascript', src='/javascripts/application.js')
+	
