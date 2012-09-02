@@ -256,7 +256,7 @@ img.loader {
 	position: relative;
 }
 
-.large {
+div.large {
 	width: 200px; height: 200px;
 	position: absolute;
 	border-radius: 100%;
@@ -267,11 +267,10 @@ img.loader {
 	inset 0 0 40px 2px rgba(0, 0, 0, 0.25);
 	
 	/*Lets load up the large image first*/
-	background-image: url('/images/ukk.png');
-  background-repeat: no-repeat;
-	
+	background: url('/images/ukk.png') no-repeat;
+
 	/*hide the glass by default*/
-	display: none;
+	display: none; 
 }
 
 /* ==|== media queries ======================================================
