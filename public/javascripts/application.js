@@ -44,10 +44,31 @@ $(document).ready(function() {
 			//If you hover on the image now, you should see the magnifying glass in action
 			$("div.large").css({left: px, top: py, backgroundPosition: bgp});
 		}
-	})
+	});
+
 });
 
 $('body').waitForImages(function() {
   $('.loader').hide();
 	$('.fade').fadeIn(2000, function() {});  
+
+  /*
+ 	$("#largeCanvas").drawImage({
+		source: "/images/ukk.png",
+		x: 0, y: 0, 
+    width: 3954, height: 2470,
+    fromCenter: false
+	});
+  */
+
+  $('#routeCanvas').drawRect({
+    fillStyle: "#f00",
+		x: 20, y: 20,
+		width: 20, height: 20,
+		fromCenter: false
+  });
+
+  //$("div.large").css("background", "url('" + $("#largeCanvas").getCanvasImage("png") + "') no-repeat");
 });
+
+

@@ -1,7 +1,8 @@
 extends layout
 
 block content
-	div(class='magnify')
-		div(class='large')
-		img(class='small fade', src='/images/ukk-small.png')
-		img(class='loader', src='/images/loader.gif')
+		div(class='magnify')
+			div(class='large')
+				canvas(id='routeCanvas')
+			img(class='small fade', src='/images/ukk-small.png')
+			img(class='loader', src='/images/loader.gif')

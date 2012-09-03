@@ -261,17 +261,24 @@ div.large {
 	position: absolute;
 	border-radius: 100%;
 	
-	/*Multiple box shadows to achieve the glass effect*/
 	box-shadow: 0 0 0 7px rgba(255, 255, 255, 0.85), 
 	0 0 7px 7px rgba(0, 0, 0, 0.25), 
 	inset 0 0 40px 2px rgba(0, 0, 0, 0.25);
 	
 	/*Lets load up the large image first*/
-	background: url('/images/ukk.png') no-repeat;
+ 	background: url('/images/ukk.png') no-repeat; 
 
 	/*hide the glass by default*/
-	display: none; 
+	display: none;
 }
+
+#routeCanvas {
+	border-radius: 100%;
+	width: 200px;
+	height: 200px;
+	position: absolute;
+}
+
 
 /* ==|== media queries ======================================================
    EXAMPLE Media Query for Responsive Design.
