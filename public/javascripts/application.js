@@ -3,7 +3,6 @@ $(document).ready(function() {
 	var native_width = 3954;
 	var native_height = 2470;
 
-	//Now the mousemove function
 	$(".magnify").mousemove(function(e){
 		//x/y coordinates of the mouse
 		//This is the position of .magnify with respect to the document.
@@ -43,6 +42,32 @@ $(document).ready(function() {
 			
 			//If you hover on the image now, you should see the magnifying glass in action
 			$("div.large").css({left: px, top: py, backgroundPosition: bgp});
+      
+      // Draw the GPX track 
+      
+			var track_x = 500;
+			var track_y = 800;
+  
+      var scale_x = 1.5; 
+      var scale_y = 0.75;
+		
+			$('#routeCanvas').clearCanvas({
+				x: 0, y: 0,
+				width: native_width, height: native_height
+			});
+
+			var tx1 = scale_x * (track_x + rx);
+			var ty1 = scale_y * (track_y + ry);
+			var tx2 = scale_x * (track_x+20 + rx);
+			var ty2 = scale_y * (track_y+50 + ry);
+
+			$("#routeCanvas").drawLine({
+				strokeStyle: "#F00",
+				strokeWidth: 20,
+				rounded: false,
+				x1: tx1, y1: ty1,
+				x2: tx2, y2: ty2
+			});	 
 		}
 	});
 
@@ -51,24 +76,6 @@ $(document).ready(function() {
 $('body').waitForImages(function() {
   $('.loader').hide();
 	$('.fade').fadeIn(2000, function() {});  
-
-  /*
- 	$("#largeCanvas").drawImage({
-		source: "/images/ukk.png",
-		x: 0, y: 0, 
-    width: 3954, height: 2470,
-    fromCenter: false
-	});
-  */
-
-  $('#routeCanvas').drawRect({
-    fillStyle: "#f00",
-		x: 20, y: 20,
-		width: 20, height: 20,
-		fromCenter: false
-  });
-
-  //$("div.large").css("background", "url('" + $("#largeCanvas").getCanvasImage("png") + "') no-repeat");
 });
 
 
