@@ -43,13 +43,13 @@ $(document).ready(function() {
 			//If you hover on the image now, you should see the magnifying glass in action
 			$("div.large").css({left: px, top: py, backgroundPosition: bgp});
       
-      // Draw the GPX track 
+			// Draw the GPX track 
       
 			var track_x = 500;
 			var track_y = 800;
   
-      var scale_x = 1.5; 
-      var scale_y = 0.75;
+			var scale_x = 1.5; 
+			var scale_y = 0.75;
 		
 			$('#routeCanvas').clearCanvas({
 				x: 0, y: 0,
