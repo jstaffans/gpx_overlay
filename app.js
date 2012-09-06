@@ -34,17 +34,6 @@ app.get('/', function(req, res){
   });
 });
 
-app.get('/about', function(req, res){
-	console.log('Viewing about page');
-	res.render('about', {
-		title: 'About'
-  });
-});
-
-app.post('/', function(req, res) {
-	console.log(JSON.stringify(req.files));
-});
-
 http.createServer(app).listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'));
 });
