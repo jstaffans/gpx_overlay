@@ -45,29 +45,41 @@ $(document).ready(function() {
       
 			// Draw the GPX track 
       
-			var track_x = 500;
-			var track_y = 800;
-  
 			var scale_x = 1.5; 
 			var scale_y = 0.75;
-		
-			$('#routeCanvas').clearCanvas({
-				x: 0, y: 0,
-				width: native_width, height: native_height
+
+			$('div.info').text("rx: " + rx + ", ry: " + ry);
+
+		  var track_area_width = $('div.large').width();
+			var track_area_height = $('div.large').height();
+			
+			$.ajax({
+				url: '/track/1', 
+				dataType: 'json',
+				data: {
+					x: -rx, 
+					y: -ry,
+					width: track_area_width,
+					height: track_area_height
+				},
+				async: false,
+				success: function(data) {
+  				$('#routeCanvas').clearCanvas({
+						x: 0, y: 0,
+						width: native_width, height: native_height
+					});
+
+      		$.each(data.waypoints, function(i, waypoint) {
+						$("#routeCanvas").drawPolygon({
+							strokeStyle: "#0f0",
+							strokeWidth: 10,
+							x: scale_x * (waypoint.x + rx), y: scale_y * (waypoint.y + ry),
+							radius: 8,
+							sides: 3
+						});	
+					});
+				}
 			});
-
-			var tx1 = scale_x * (track_x + rx);
-			var ty1 = scale_y * (track_y + ry);
-			var tx2 = scale_x * (track_x+20 + rx);
-			var ty2 = scale_y * (track_y+50 + ry);
-
-			$("#routeCanvas").drawLine({
-				strokeStyle: "#F00",
-				strokeWidth: 20,
-				rounded: false,
-				x1: tx1, y1: ty1,
-				x2: tx2, y2: ty2
-			});	 
 		}
 	});
 

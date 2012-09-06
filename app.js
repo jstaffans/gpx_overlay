@@ -34,6 +34,10 @@ app.get('/', function(req, res){
   });
 });
 
+app.get('/track/:id', function(req, res) {
+  return res.json({ waypoints: [{x: 500, y: 800}, {x: 530, y: 830}] });
+});
+
 http.createServer(app).listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'));
 });

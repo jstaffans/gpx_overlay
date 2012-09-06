@@ -3,6 +3,14 @@
    Author: Johannes Staffans
    ========================================================================== */
 
+/* TEXT */
+
+div.info {
+	display: block;
+	background: #ddd;
+	min-height: 20px;
+}
+
 /* IMAGES */
 
 img.fade {
