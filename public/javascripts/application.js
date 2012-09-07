@@ -1,7 +1,23 @@
+var waypoints;
+
 $(document).ready(function() {
 	// the dimensions of the full-size image
 	var native_width = 3954;
 	var native_height = 2470;
+	
+	$.ajax({
+		url: '/track/1', 
+		dataType: 'json',
+		data: {
+			x: 0, 
+			y: 0,
+			width: native_width,
+			height: native_height
+		},
+		success: function(data) {
+			waypoints = data.waypoints;
+		}
+	});
 
 	$(".magnify").mousemove(function(e){
 		//x/y coordinates of the mouse
@@ -52,37 +68,23 @@ $(document).ready(function() {
 
 		  var track_area_width = $('div.large').width();
 			var track_area_height = $('div.large').height();
-			
-			$.ajax({
-				url: '/track/1', 
-				dataType: 'json',
-				data: {
-					x: -rx, 
-					y: -ry,
-					width: track_area_width,
-					height: track_area_height
-				},
-				async: false,
-				success: function(data) {
-  				$('#routeCanvas').clearCanvas({
-						x: 0, y: 0,
-						width: native_width, height: native_height
-					});
+		
+			$('#routeCanvas').clearCanvas({
+				x: 0, y: 0,
+				width: native_width, height: native_height
+			});
 
-      		$.each(data.waypoints, function(i, waypoint) {
-						$("#routeCanvas").drawPolygon({
-							strokeStyle: "#0f0",
-							strokeWidth: 10,
-							x: scale_x * (waypoint.x + rx), y: scale_y * (waypoint.y + ry),
-							radius: 8,
-							sides: 3
-						});	
-					});
-				}
+			$.each(waypoints, function(i, waypoint) {
+				$("#routeCanvas").drawPolygon({
+					strokeStyle: "#0f0",
+					strokeWidth: 10,
+					x: scale_x * (waypoint.x + rx), y: scale_y * (waypoint.y + ry),
+					radius: 8,
+					sides: 3
+				});	
 			});
 		}
 	});
-
 });
 
 $('body').waitForImages(function() {
