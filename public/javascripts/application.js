@@ -6,7 +6,7 @@ $(document).ready(function() {
 	var native_height = 2470;
 	
 	$.ajax({
-		url: '/track/1', 
+		url: '/track/waypoints/1', 
 		dataType: 'json',
 		data: {
 			x: 0, 
