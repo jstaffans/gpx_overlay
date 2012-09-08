@@ -1,4 +1,4 @@
-//var model = "../models/track.js";
+var model = require('../models/track.js');
 
 module.exports = function(app) {
 	app.get('/track/waypoints/:id', function(req, res) {
@@ -6,7 +6,7 @@ module.exports = function(app) {
 	});
 
 	app.get('/track/days', function(req, res) {
-		return res.json({days: 'foobar'});
+		return res.json({days: model.days()});
 	});
 
 }

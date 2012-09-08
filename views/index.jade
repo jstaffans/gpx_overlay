@@ -1,15 +1,12 @@
 extends layout
 
 block content
-		div(class='info')
-		div(class='commands')
-			span Day: 
-			select(name='day') 
-				option(value='1') 18.8.2012
-					
-			
-		div(class='magnify')
-			div(class='large')
-				canvas(id='routeCanvas')
-			img(class='small fade', src='/images/ukk-small.png')
-			img(class='loader', src='/images/loader.gif')
+	div(class='commands')
+		span Day: 
+		select(id='day') 
+	
+	div(class='magnify')
+		div(class='large')
+			canvas(id='routeCanvas')
+		img(class='small fade', src='/images/ukk-small.png')
+		img(class='loader', src='/images/loader.gif')

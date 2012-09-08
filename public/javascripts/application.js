@@ -1,10 +1,22 @@
+// the dimensions of the full-size image
+var native_width = 3954;
+var native_height = 2470;
+
 var waypoints;
 
-$(document).ready(function() {
-	// the dimensions of the full-size image
-	var native_width = 3954;
-	var native_height = 2470;
-	
+getDays = function() {
+	$.ajax({
+		url: '/track/days', 
+		dataType: 'json',
+		success: function(data) {
+			$.each(data.days, function(key, day) {
+				$('select#day').append($('<option/>', {value: day.id, text: day.date}));
+			});
+		}
+	});
+}
+
+getWaypoints = function() {
 	$.ajax({
 		url: '/track/waypoints/1', 
 		dataType: 'json',
@@ -18,8 +30,10 @@ $(document).ready(function() {
 			waypoints = data.waypoints;
 		}
 	});
+};
 
-	$(".magnify").mousemove(function(e){
+setupMagnifyingGlass = function() {
+	$(".magnify").mousemove(function(e) {
 		//x/y coordinates of the mouse
 		//This is the position of .magnify with respect to the document.
 		var magnify_offset = $(this).offset();
@@ -59,37 +73,40 @@ $(document).ready(function() {
 			//If you hover on the image now, you should see the magnifying glass in action
 			$("div.large").css({left: px, top: py, backgroundPosition: bgp});
       
-			// Draw the GPX track 
-      
-			var scale_x = 1.5; 
-			var scale_y = 0.75;
-
 			$('div.info').text("rx: " + rx + ", ry: " + ry);
 
-		  var track_area_width = $('div.large').width();
-			var track_area_height = $('div.large').height();
-		
-			$('#routeCanvas').clearCanvas({
-				x: 0, y: 0,
-				width: native_width, height: native_height
-			});
-
-			$.each(waypoints, function(i, waypoint) {
-				$("#routeCanvas").drawPolygon({
-					strokeStyle: "#0f0",
-					strokeWidth: 10,
-					x: scale_x * (waypoint.x + rx), y: scale_y * (waypoint.y + ry),
-					radius: 8,
-					sides: 3
-				});	
-			});
+			drawMagnifiedWaypoints(rx, ry);
 		}
 	});
-});
+};
+
+drawMagnifiedWaypoints = function(rx, ry) {
+	var scale_x = 1.5; 
+	var scale_y = 0.75;
+
+	$('#routeCanvas').clearCanvas({
+		x: 0, y: 0,
+		width: native_width, height: native_height
+	});
+
+	$.each(waypoints, function(i, waypoint) {
+		$("#routeCanvas").drawPolygon({
+			strokeStyle: "#0f0",
+			strokeWidth: 10,
+			x: scale_x * (waypoint.x + rx), y: scale_y * (waypoint.y + ry),
+			radius: 8,
+			sides: 3
+		});	
+	});
+};
 
 $('body').waitForImages(function() {
   $('.loader').hide();
 	$('.fade').fadeIn(2000, function() {});  
 });
 
-
+$(document).ready(function() {
+	getDays();
+	getWaypoints();
+	setupMagnifyingGlass();	
+});
