@@ -1,4 +1,6 @@
-module.exports.days = function() {
+var gpx = require('../lib/gpx.js');
+
+module.exports.getDays = function() {
 	return  [
 		{id: 1, date: '18.8.2012'},
 		{id: 2, date: '19.8.2012'},
@@ -9,4 +11,9 @@ module.exports.days = function() {
 		{id: 7, date: '24.8.2012'},
 		{id: 8, date: '25.8.2012'},
 	];
+}
+
+module.exports.getWaypoints = function(id) {
+	gpx.parse("../public/tracks/day_" + id + ".gpx");
+	return gpx.getWaypoints();
 }
