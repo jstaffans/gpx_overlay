@@ -1,0 +1,7 @@
+GPX Overlay todo
+
+- Changing the day dropdown selection should trigger parsing of that day's waypoints
+
+- When waypoints have been parsed, they should be 
+	- plotted on the small map as a think line
+	- plotted on the large (magnify) map as a thick line
