@@ -12,4 +12,12 @@ describe('Track', function() {
 		days[0].id.should.equal(1);
 		days[0].date.should.match(/^\d{1,2}\.\d{1,2}\.\d{4}$/);
 	});
+
+	it('should be scalable', function() {
+		should.fail('Not implemented yet');
+	});
+
+	it('should be translatable', function() {
+		should.fail('Not implemented yet');
+	});
 });
