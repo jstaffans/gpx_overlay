@@ -26,6 +26,12 @@ describe('Track', function() {
 	});
 
 	it('should be translatable', function() {
-		should.fail('Not implemented yet');
+		model.loadWaypoints('test/resource/test_track_two_distant_waypoints.gpx');
+		model.setOrigin(20.0, 20.0);
+		model.setOnePixelIsMeters(100);
+		var waypoints = model.getTransformedWaypoints();
+		waypoints.should.have.lengthOf(2);
+		waypoints[0].x.should.not.equal(0);
+		waypoints[0].y.should.not.equal(0);
 	});
 });

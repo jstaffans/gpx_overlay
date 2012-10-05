@@ -18,10 +18,11 @@ module.exports.getDays = function() {
 var Track = function() {
 
 	var waypoints;
+	var origin;
 	var pixelWaypoints;
 	var onePixelInMeters;
 
-	return {
+	var public = {
 		initialize: function () {
 			clearWaypoints();
 		},
@@ -34,16 +35,22 @@ var Track = function() {
 			waypoints = wp;
 		},
 
+		setDefaultOrigin: function() {
+			origin = latlon.createLatLon(waypoints[0].lat, waypoints[0].lon);
+		},
+
+		setOrigin: function(lat, lon) {
+			origin = latlon.createLatLon(lat, lon);
+		},
+
 		setOnePixelIsMeters: function(meters) {
 			onePixelInMeters = meters;
 		},
 
 		scaleToPixels: function() {
-			var origin = latlon.createLatLon(waypoints[0].lat, waypoints[0].lon);
 			pixelWaypoints = Array();
-			pixelWaypoints.push({x: 0, y: 0});
-			for (var i = 1; i < waypoints.length; i++) {
-				var distances = getXYDistances(origin, waypoints[i]);
+			for (var i = 0; i < waypoints.length; i++) {
+				var distances = getXYDistances(waypoints[i]);
 				pixelWaypoints.push({
 					x: scaleKmToPixels(distances.x),
 					y: scaleKmToPixels(distances.y)
@@ -56,7 +63,7 @@ var Track = function() {
 		},
 	}
 
-	function getXYDistances(origin, point) {
+	function getXYDistances(point) {
 		var x = latlon.createLatLon(point.lat, origin._lon);
 		var y = latlon.createLatLon(origin._lat, point.lon);
 		var dx = x.distanceTo(origin);
@@ -67,16 +74,23 @@ var Track = function() {
 	function scaleKmToPixels(d) {
 		return Math.round((d * 1000) / onePixelInMeters);	
 	}
+
+	return public;
 };
 
 track = new Track();
 
 module.exports.loadWaypoints = function(filename) {
 	track.setWaypoints(gpx.parse(filename));
+	track.setDefaultOrigin();
 }
 
 module.exports.setOnePixelIsMeters = function(meters) {
 	track.setOnePixelIsMeters(meters);	
+}
+
+module.exports.setOrigin = function(lat, lon) {
+	track.setOrigin(lat, lon);
 }
 
 module.exports.getTransformedWaypoints = function() {
