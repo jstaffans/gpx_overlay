@@ -25,7 +25,5 @@ describe('Gpx', function() {
 		waypoints[2].lon.should.be.equal(28.6187259);
 	});
 
-
-
 });
 	

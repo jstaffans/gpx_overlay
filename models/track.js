@@ -1,4 +1,6 @@
 var gpx = require('../lib/gpx.js');
+var geo = require('../lib/geo.js');
+var latlon = require('../lib/latlon.js');
 
 module.exports.getDays = function() {
 	return  [
@@ -13,7 +15,71 @@ module.exports.getDays = function() {
 	];
 }
 
-module.exports.getWaypoints = function(id) {
-	gpx.parse("../public/tracks/day_" + id + ".gpx");
-	return gpx.getWaypoints();
+var Track = function() {
+
+	var waypoints;
+	var pixelWaypoints;
+	var onePixelInMeters;
+
+	return {
+		initialize: function () {
+			clearWaypoints();
+		},
+
+		clearWaypoints: function () {
+			waypoints = new Array();
+		},
+
+		setWaypoints: function(wp) {
+			waypoints = wp;
+		},
+
+		setOnePixelIsMeters: function(meters) {
+			onePixelInMeters = meters;
+		},
+
+		scaleToPixels: function() {
+			var origin = latlon.createLatLon(waypoints[0].lat, waypoints[0].lon);
+			pixelWaypoints = Array();
+			pixelWaypoints.push({x: 0, y: 0});
+			for (var i = 1; i < waypoints.length; i++) {
+				var distances = getXYDistances(origin, waypoints[i]);
+				pixelWaypoints.push({
+					x: scaleKmToPixels(distances.x),
+					y: scaleKmToPixels(distances.y)
+				});
+			}
+		},
+
+		getPixelWaypoints: function() {
+			return pixelWaypoints;
+		},
+	}
+
+	function getXYDistances(origin, point) {
+		var x = latlon.createLatLon(point.lat, origin._lon);
+		var y = latlon.createLatLon(origin._lat, point.lon);
+		var dx = x.distanceTo(origin);
+		var dy = y.distanceTo(origin);
+		return {x: dx, y: dy};
+	}
+
+	function scaleKmToPixels(d) {
+		return Math.round((d * 1000) / onePixelInMeters);	
+	}
+};
+
+track = new Track();
+
+module.exports.loadWaypoints = function(filename) {
+	track.setWaypoints(gpx.parse(filename));
+}
+
+module.exports.setOnePixelIsMeters = function(meters) {
+	track.setOnePixelIsMeters(meters);	
+}
+
+module.exports.getTransformedWaypoints = function() {
+	track.scaleToPixels();
+	return track.getPixelWaypoints();
 }

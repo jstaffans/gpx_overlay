@@ -1,0 +1,18 @@
+
+<?xml version="1.0" encoding="UTF-8"?>
+<gpx xmlns="http://www.topografix.com/GPX/1/1" version="1.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd" creator="MotionXGPSFull 19.1 Build 4444R">
+<trk>
+<name><![CDATA[Test Track 3]]></name>
+<desc><![CDATA[18.08.2012  2:43 pm]]></desc>
+<trkseg>
+<trkpt lat="40.0" lon="40.0">
+<ele>107.561</ele>
+<time>2012-08-18T11:43:29.169Z</time>
+</trkpt>
+<trkpt lat="41.0" lon="41.0">
+<ele>114.351</ele>
+<time>2012-08-18T11:43:29.170Z</time>
+</trkpt>
+</trkseg>
+</trk>
+</gpx>
