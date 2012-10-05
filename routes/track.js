@@ -6,7 +6,10 @@ module.exports = function(app) {
 	});
 
 	app.get('/track/waypoints/:id', function(req, res) {
-		return res.json({ waypoints: model.getWaypoints(req.params.id) });
+		var filename = model.getFilenameForTrackId(req.params.id);
+		model.loadWaypoints(filename);
+		model.setOnePixelIsMeters(100);
+		return res.json({ waypoints: model.getTransformedWaypoints() });
 	});
 }
 

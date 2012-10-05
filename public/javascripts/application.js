@@ -2,7 +2,7 @@
 var native_width = 3954;
 var native_height = 2470;
 
-var waypoints;
+var waypoints = [];
 
 getDays = function() {
 	$.ajax({
@@ -17,20 +17,24 @@ getDays = function() {
 }
 
 getWaypoints = function() {
+	var id = $('select#day option:selected').val();
+	console.log(id);
 	$.ajax({
-		url: '/track/waypoints/1', 
+		url: '/track/waypoints/' + id,
 		dataType: 'json',
-		data: {
-			x: 0, 
-			y: 0,
-			width: native_width,
-			height: native_height
-		},
 		success: function(data) {
+			console.log(data);
 			waypoints = data.waypoints;
 		}
 	});
 };
+
+setupDayDropdown = function() {
+	$('select#day').change(function() {
+		alert('waypoints');
+		getWaypoints();
+	});
+}
 
 setupMagnifyingGlass = function() {
 	$(".magnify").mousemove(function(e) {
@@ -107,6 +111,6 @@ $('body').waitForImages(function() {
 
 $(document).ready(function() {
 	getDays();
-	getWaypoints();
 	setupMagnifyingGlass();	
+	setupDayDropdown();
 });

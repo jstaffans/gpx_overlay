@@ -15,6 +15,11 @@ module.exports.getDays = function() {
 	];
 }
 
+module.exports.getFilenameForTrackId = function(id) {
+	var p = /^\d$/;
+	return (p.test(id)) ? __dirname + '/track/day_' + id + '.gpx' : '';
+}
+
 var Track = function() {
 
 	var waypoints;
@@ -68,6 +73,15 @@ var Track = function() {
 		var y = latlon.createLatLon(origin._lat, point.lon);
 		var dx = x.distanceTo(origin);
 		var dy = y.distanceTo(origin);
+
+		if (point.lat < origin._lat) {
+			dx = -dx;
+		}
+
+		if (point.lon < origin._lon) {
+			dy = -dy;
+		}
+		
 		return {x: dx, y: dy};
 	}
 
